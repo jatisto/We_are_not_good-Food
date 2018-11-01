@@ -22,12 +22,11 @@ namespace WeAreNotGoodFood.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Dishes.Include(d => d.Restaurant);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Dishes.ToListAsync());
         }
 
         // GET: Dishes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -35,7 +34,6 @@ namespace WeAreNotGoodFood.Controllers
             }
 
             var dish = await _context.Dishes
-                .Include(d => d.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dish == null)
             {
@@ -48,7 +46,6 @@ namespace WeAreNotGoodFood.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id");
             return View();
         }
 
@@ -65,12 +62,11 @@ namespace WeAreNotGoodFood.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
 
         // GET: Dishes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -82,7 +78,6 @@ namespace WeAreNotGoodFood.Controllers
             {
                 return NotFound();
             }
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
 
@@ -91,7 +86,7 @@ namespace WeAreNotGoodFood.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish)
+        public async Task<IActionResult> Edit(string id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish)
         {
             if (id != dish.Id)
             {
@@ -118,12 +113,11 @@ namespace WeAreNotGoodFood.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
 
         // GET: Dishes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -131,7 +125,6 @@ namespace WeAreNotGoodFood.Controllers
             }
 
             var dish = await _context.Dishes
-                .Include(d => d.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dish == null)
             {
@@ -144,7 +137,7 @@ namespace WeAreNotGoodFood.Controllers
         // POST: Dishes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var dish = await _context.Dishes.FindAsync(id);
             _context.Dishes.Remove(dish);
@@ -152,7 +145,7 @@ namespace WeAreNotGoodFood.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DishExists(int id)
+        private bool DishExists(string id)
         {
             return _context.Dishes.Any(e => e.Id == id);
         }

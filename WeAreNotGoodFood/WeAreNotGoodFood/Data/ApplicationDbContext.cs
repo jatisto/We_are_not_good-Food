@@ -8,7 +8,7 @@ using WeAreNotGoodFood.Models;
 
 namespace WeAreNotGoodFood.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Dish> Dishes { get; set; }

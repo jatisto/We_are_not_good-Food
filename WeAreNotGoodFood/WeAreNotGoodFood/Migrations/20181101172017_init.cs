@@ -48,6 +48,20 @@ namespace WeAreNotGoodFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Restaurants",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ImagesRestaurant = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurants", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -153,6 +167,29 @@ namespace WeAreNotGoodFood.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Dishes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    NameDish = table.Column<string>(nullable: true),
+                    ImagesDish = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    RestaurantId = table.Column<int>(nullable: false),
+                    RestaurantId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dishes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dishes_Restaurants_RestaurantId1",
+                        column: x => x.RestaurantId1,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +228,11 @@ namespace WeAreNotGoodFood.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dishes_RestaurantId1",
+                table: "Dishes",
+                column: "RestaurantId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +253,16 @@ namespace WeAreNotGoodFood.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Dishes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
         }
     }
 }

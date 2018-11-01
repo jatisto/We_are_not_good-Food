@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Laboratory56.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +16,25 @@ namespace WeAreNotGoodFood.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        #region Conection and ctor
 
-        public RestaurantsController(ApplicationDbContext context)
+        public RestaurantsController(ApplicationDbContext context, IHostingEnvironment environment,
+            FileUploadService fileUploadService, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _environment = environment;
+            _fileUploadService = fileUploadService;
+            _userManager = userManager;
         }
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment _environment;
+        private readonly FileUploadService _fileUploadService;
+
+        #endregion
+
+        #region Index
 
         // GET: Restaurants
         public async Task<IActionResult> Index()
@@ -25,8 +42,12 @@ namespace WeAreNotGoodFood.Controllers
             return View(await _context.Restaurants.ToListAsync());
         }
 
+        #endregion
+
+        #region Details
+
         // GET: Restaurants/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -43,6 +64,10 @@ namespace WeAreNotGoodFood.Controllers
             return View(restaurant);
         }
 
+        #endregion
+
+        #region Create
+
         // GET: Restaurants/Create
         public IActionResult Create()
         {
@@ -54,19 +79,26 @@ namespace WeAreNotGoodFood.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,Id")] Restaurant restaurant)
+        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,Id")] Restaurant restaurant, RestaurantVM model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(restaurant);
+                var user = await _userManager.GetUserAsync(User);
+                var restaurantUpload = Restaurant(restaurant, model);
+                restaurantUpload.Id = user.Id;
+                _context.Add(restaurantUpload);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(restaurant);
         }
 
+        #endregion
+
+        #region Edit
+
         // GET: Restaurants/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -86,7 +118,7 @@ namespace WeAreNotGoodFood.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,ImagesRestaurant,Description,Id")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(string id, [Bind("Name,ImagesRestaurant,Description,Id")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {
@@ -116,8 +148,12 @@ namespace WeAreNotGoodFood.Controllers
             return View(restaurant);
         }
 
+        #endregion
+
+        #region Delete
+
         // GET: Restaurants/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -137,7 +173,7 @@ namespace WeAreNotGoodFood.Controllers
         // POST: Restaurants/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var restaurant = await _context.Restaurants.FindAsync(id);
             _context.Restaurants.Remove(restaurant);
@@ -145,9 +181,35 @@ namespace WeAreNotGoodFood.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RestaurantExists(int id)
+        #endregion
+
+        #region Exists
+
+        private bool RestaurantExists(string id)
         {
             return _context.Restaurants.Any(e => e.Id == id);
         }
+
+        #endregion
+
+        #region PublicationUpload
+
+        private Restaurant Restaurant(Restaurant restaurant, RestaurantVM model)
+        {
+            var path = Path.Combine(_environment.WebRootPath, $"images\\{_userManager.GetUserName(User)}\\Publication");
+
+            _fileUploadService.Upload(path, model.ImagesRestaurant.FileName, model.ImagesRestaurant);
+            var imageUrlRestaurant = $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesRestaurant.FileName}";
+
+            var pub = new Restaurant
+            {
+                ImagesRestaurant = imageUrlRestaurant,
+                Description = restaurant.Description
+            };
+
+            return pub;
+        }
+
+        #endregion	
     }
 }

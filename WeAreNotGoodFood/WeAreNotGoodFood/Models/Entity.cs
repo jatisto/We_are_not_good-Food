@@ -10,6 +10,6 @@ namespace WeAreNotGoodFood.Models
     public class Entity
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }
