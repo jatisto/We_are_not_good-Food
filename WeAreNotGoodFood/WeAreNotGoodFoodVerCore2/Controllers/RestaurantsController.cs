@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Laboratory56.Services;
@@ -45,6 +46,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Restaurants.Include(r => r.User);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -74,24 +76,25 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         #endregion
 
         #region Create
-
-        // GET: Restaurants/Create
+        
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Restaurants/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,UserId,Id")] Restaurant restaurant)
+        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,UserId,Id")] Restaurant restaurant, RestaurantVM model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(restaurant);
+                var user = await _userManager.GetUserAsync(User);
+                var restaurantUp = Restaurant(restaurant, model);
+                restaurantUp.UserId = user.Id;
+
+                _context.Add(restaurantUp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -197,6 +200,27 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         private bool RestaurantExists(int id)
         {
             return _context.Restaurants.Any(e => e.Id == id);
+        }
+
+        #endregion
+
+        #region RestaurantUpload
+
+        private Restaurant Restaurant(Restaurant restaurant, RestaurantVM model)
+        {
+            var path = Path.Combine(_environment.WebRootPath, $"images\\{_userManager.GetUserName(User)}\\Publication");
+
+            _fileUploadService.Upload(path, model.ImagesRestaurant.FileName, model.ImagesRestaurant);
+            var imageUrlContent = $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesRestaurant.FileName}";
+
+            var resistor = new Restaurant
+            {
+                Name = restaurant.Name,
+                ImagesRestaurant = imageUrlContent,
+                Description = restaurant.Description
+            };
+
+            return resistor;
         }
 
         #endregion
