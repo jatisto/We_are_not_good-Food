@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using WeAreNotGoodFood.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WeAreNotGoodFood.Models;
 
 namespace WeAreNotGoodFood
 {

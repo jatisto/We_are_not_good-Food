@@ -19,15 +19,13 @@ namespace WeAreNotGoodFood.Controllers
         #region Conection and ctor
 
         public RestaurantsController(ApplicationDbContext context, IHostingEnvironment environment,
-            FileUploadService fileUploadService, UserManager<ApplicationUser> userManager)
+            FileUploadService fileUploadService)
         {
             _context = context;
             _environment = environment;
             _fileUploadService = fileUploadService;
-            _userManager = userManager;
         }
 
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _environment;
         private readonly FileUploadService _fileUploadService;
@@ -83,10 +81,10 @@ namespace WeAreNotGoodFood.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
-                var restaurantUpload = Restaurant(restaurant, model);
-                restaurantUpload.Id = user.Id;
-                _context.Add(restaurantUpload);
+//                var user = await _userManager.GetUserAsync(User);
+//                var restaurantUpload = Restaurant(restaurant, model);
+//                restaurantUpload.Id = user.Id;
+                _context.Add(restaurant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -194,7 +192,7 @@ namespace WeAreNotGoodFood.Controllers
 
         #region PublicationUpload
 
-        private Restaurant Restaurant(Restaurant restaurant, RestaurantVM model)
+        /*private Restaurant Restaurant(Restaurant restaurant, RestaurantVM model)
         {
             var path = Path.Combine(_environment.WebRootPath, $"images\\{_userManager.GetUserName(User)}\\Publication");
 
@@ -208,7 +206,7 @@ namespace WeAreNotGoodFood.Controllers
             };
 
             return pub;
-        }
+        }*/
 
         #endregion	
     }
