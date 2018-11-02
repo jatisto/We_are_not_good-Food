@@ -45,7 +45,9 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Restaurants.Include(r => r.User);
+            var applicationDbContext = _context.Restaurants
+                .Include(r => r.User)
+                .OrderByDescending(r => r.Id);
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -128,18 +130,31 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,ImagesRestaurant,Description,UserId,Id")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("Name,ImagesRestaurant,Description,UserId,Id")]
+            Restaurant restaurant,
+            RestaurantVM model)
         {
             if (id != restaurant.Id)
             {
                 return NotFound();
             }
-
+            var searching = await _context.Restaurants.SingleOrDefaultAsync(s => s.Id == id);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(restaurant);
+                    var path = Path.Combine(_environment.WebRootPath,
+                        $"images\\{_userManager.GetUserName(User)}\\Publication");
+
+                    _fileUploadService.Upload(path, model.ImagesRestaurant.FileName, model.ImagesRestaurant);
+                    var imageUrlContent =
+                        $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesRestaurant.FileName}";
+
+                    searching.Description = restaurant.Description;
+                    searching.ImagesRestaurant = imageUrlContent;
+
+                    _context.Update(searching);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

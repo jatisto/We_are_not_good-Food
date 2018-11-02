@@ -4,17 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Все заведения</h2>
+<h2 style="color: darkslategrey">Все заведения</h2>
 
 <p>
-    <a asp-action="Create">Добавить заведение</a>
+    <a asp-action="Create" style="color: darkcyan">Добавить заведение</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th style="width: 20%; color: cadetblue">Название</th>
-                <th style="width: 60%; color: cadetblue">Изображение</th>
-                <th style="width: 20%; color: cadetblue">Описание</th>
+                <th style="width: 20%; color: darkgray">Ресторана/Кафе</th>
+                <th style="width: 60%; color: darkgray">Вид</th>
+                <th style="width: 20%; color: darkgray">О заведении</th>
+                <th style="width: 5%; color: darkgray">Владелец</th>
+                <th style="width: 5%; color: darkgray">Редактирование</th>
                
             <th></th>
         </tr>
@@ -32,9 +34,12 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit</a> <br />
+                <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details</a> <br />
+                <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a> <br />
             </td>
         </tr>
 }
