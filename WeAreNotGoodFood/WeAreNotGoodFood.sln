@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
+VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeAreNotGoodFood", "WeAreNotGoodFood\WeAreNotGoodFood.csproj", "{A8EC9A38-B6E1-4500-A41A-167ED8EA0F58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeAreNotGoodFood", "WeAreNotGoodFood.csproj", "{D2B4F576-8B9E-46A4-A905-B01EAAB207BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A8EC9A38-B6E1-4500-A41A-167ED8EA0F58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8EC9A38-B6E1-4500-A41A-167ED8EA0F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8EC9A38-B6E1-4500-A41A-167ED8EA0F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8EC9A38-B6E1-4500-A41A-167ED8EA0F58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B4F576-8B9E-46A4-A905-B01EAAB207BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B4F576-8B9E-46A4-A905-B01EAAB207BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B4F576-8B9E-46A4-A905-B01EAAB207BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B4F576-8B9E-46A4-A905-B01EAAB207BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2F3D5B31-538F-4B73-B3F3-8B98FD16B449}
+		SolutionGuid = {030DC32A-CC63-435A-8BED-6EB7F7F4EF97}
 	EndGlobalSection
 EndGlobal
