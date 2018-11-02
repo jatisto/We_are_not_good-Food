@@ -10,6 +10,8 @@ namespace WeAreNotGoodFoodVerCore2.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Dish> Dishes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
