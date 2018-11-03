@@ -77,25 +77,6 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             return View(dish);
         }
 
-/*        // GET: Dishes/Details/5
-        public async Task<IActionResult> ShowLIst(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var dish = await _context.Dishes
-                .Include(d => d.Restaurant)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (dish == null)
-            {
-                return NotFound();
-            }
-
-            return PartialView(dish);
-        }*/
-
         #endregion
 
         #region Create
@@ -266,6 +247,35 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             };
 
             return dishNew;
+        }
+
+        #endregion
+
+        #region AddCart
+
+        public async Task<IActionResult> AddShoppingCart(Dish dish, int quantity)
+        {
+
+            ShoppingCart shoppingCart = new List<ShoppingCart>()
+                .Where(d => d.Dish.Id == dish.Id)
+                .FirstOrDefault(d => d.Dish.Id == dish.Id);
+
+            if (ModelState.IsValid)
+            {
+                if (shoppingCart == null)
+                {
+                    _context.Add(new ShoppingCart { Dish = dish, Quantity = quantity });
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                shoppingCart.Quantity += quantity;
+                _context.Add(shoppingCart);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(dish);
         }
 
         #endregion
