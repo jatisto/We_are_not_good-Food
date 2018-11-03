@@ -256,7 +256,11 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
 
         public ActionResult AllDish()
         {
-            return PartialView(_context.Dishes.ToList());
+            var dishContext = _context.Dishes
+                .Include(r => r.User)
+                .OrderByDescending(r => r.Id);
+
+            return View(dishContext.ToList());
         }
     }
 }
