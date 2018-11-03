@@ -51,19 +51,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCarts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Quantity = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -202,7 +189,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     NameDish = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
                     RestaurantId = table.Column<int>(nullable: false),
-                    ShoppingCartId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -212,12 +198,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                         name: "FK_Dishes_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Dishes_ShoppingCarts_ShoppingCartId",
-                        column: x => x.ShoppingCartId,
-                        principalTable: "ShoppingCarts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -273,12 +253,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dishes_ShoppingCartId",
-                table: "Dishes",
-                column: "ShoppingCartId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Dishes_UserId",
                 table: "Dishes",
                 column: "UserId");
@@ -314,9 +288,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
-
-            migrationBuilder.DropTable(
-                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

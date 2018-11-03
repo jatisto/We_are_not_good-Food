@@ -14,8 +14,5 @@ namespace WeAreNotGoodFoodVerCore2.Models
 
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
-
-        public int ShoppingCartId { get; set; }
-        public ShoppingCart ShoppingCart { get; set; }
     }
 }
