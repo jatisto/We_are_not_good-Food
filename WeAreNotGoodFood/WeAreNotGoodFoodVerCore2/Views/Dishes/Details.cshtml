@@ -10,35 +10,35 @@
     <h4>Dish</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NameDish)
+        <dt style=" width: 20%; color: darkslategrey">
+            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.NameDish)</h4>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NameDish)
+            <h4 style="width: 50%; color: brown"> @Html.DisplayFor(model => model.NameDish)</h4>
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagesDish)
+        <dt style=" width: 20%; color: darkslategrey">
+            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.ImagesDish)</h4>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ImagesDish)
+            <img src="~/@Model.ImagesDish" width="550" height="350" />
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
+        <dt style=" width: 20%; color: darkslategrey">
+            <h4 style=" width: 10%; color: darkslategrey"> @Html.DisplayNameFor(model => model.Price)</h4>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            <h4 style=" width: 50%; color: darkslategrey">@Html.DisplayFor(model => model.Price)</h4>
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
+        <dt style=" width: 20%; color: darkslategrey">
+            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.Description)</h4>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Restaurant)
+        <dt style=" width: 20%; color: darkslategrey">
+            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.Restaurant)</h4>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Restaurant.Id)
+            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayFor(model => model.Restaurant.Id)</h4>
         </dd>
     </dl>
 </div>

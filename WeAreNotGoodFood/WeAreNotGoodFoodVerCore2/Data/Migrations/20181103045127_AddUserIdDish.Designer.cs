@@ -11,9 +11,10 @@ using WeAreNotGoodFoodVerCore2.Data;
 namespace WeAreNotGoodFoodVerCore2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181103045127_AddUserIdDish")]
+    partial class AddUserIdDish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,6 +200,8 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
                     b.Property<int>("RestaurantId");
 
                     b.Property<string>("UserId");
+
+                    b.Property<string>("UserIdDish");
 
                     b.HasKey("Id");
 

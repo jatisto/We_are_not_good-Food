@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Laboratory56.Services;
@@ -46,7 +47,10 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Dishes.Include(d => d.Restaurant);
+            var applicationDbContext = _context.Dishes
+                .Include(d => d.Restaurant)
+                .OrderByDescending(r => r.Id);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -89,11 +93,15 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish)
+        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish, DishVM model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dish);
+                var user = await _userManager.GetUserAsync(User);
+                var dishUp = Dish(dish, model);
+                dishUp.UserId = user.Id;
+
+                _context.Add(dishUp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -127,18 +135,29 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish, DishVM model)
         {
             if (id != dish.Id)
             {
                 return NotFound();
             }
-
+            var searching = await _context.Dishes.SingleOrDefaultAsync(s => s.Id == id);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(dish);
+
+                    var path = Path.Combine(_environment.WebRootPath,
+                        $"images\\{_userManager.GetUserName(User)}\\Publication");
+
+                    _fileUploadService.Upload(path, model.ImagesDish.FileName, model.ImagesDish);
+                    var imageUrlContent =
+                        $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesDish.FileName}";
+
+                    searching.Description = dish.Description;
+                    searching.ImagesDish = imageUrlContent;
+
+                    _context.Update(searching);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -199,6 +218,29 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         private bool DishExists(int id)
         {
             return _context.Dishes.Any(e => e.Id == id);
+        }
+
+        #endregion
+
+        #region RestaurantUpload
+
+        private Dish Dish(Dish dish, DishVM model)
+        {
+            var path = Path.Combine(_environment.WebRootPath, $"images\\{_userManager.GetUserName(User)}\\Publication");
+
+            _fileUploadService.Upload(path, model.ImagesDish.FileName, model.ImagesDish);
+            var imageUrlContent = $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesDish.FileName}";
+
+            var dishNew = new Dish
+            {
+                NameDish = dish.NameDish,
+                ImagesDish = imageUrlContent,
+                Description = dish.Description,
+                Price = dish.Price,
+                RestaurantId = dish.RestaurantId
+            };
+
+            return dishNew;
         }
 
         #endregion

@@ -11,9 +11,10 @@ using WeAreNotGoodFoodVerCore2.Data;
 namespace WeAreNotGoodFoodVerCore2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181103050656_renameImagesDish")]
+    partial class renameImagesDish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,6 +199,8 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
 
                     b.Property<int>("RestaurantId");
 
+                    b.Property<string>("UserDishId");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
@@ -282,14 +285,14 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("DishList")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.Restaurant", b =>
                 {
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("RestaurantsList")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
