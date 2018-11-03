@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WeAreNotGoodFoodVerCore2.Models
 {
-    public class Restaurant : Entity, IEnumerable
+    public class Restaurant : Entity
     {
         [Display(Name = "Имя")]
         public string Name { get; set; }
@@ -23,12 +23,9 @@ namespace WeAreNotGoodFoodVerCore2.Models
 
         public List<Dish> DishList { get; set; }
 
-        public IEnumerator GetEnumerator()
+        /*public IEnumerator GetEnumerator()
         {
-            foreach (var item in DishList)
-            {
-                yield return item;
-            }
-        }
+            return DishList.GetEnumerator();
+        }*/
     }
 }

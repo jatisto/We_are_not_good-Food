@@ -32,7 +32,7 @@
         </dd>
         <hr />
         <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.User)</h4>
+            <h4 style=" width: 10%; color: darkslategrey">Имя владельца</h4>
         </dt>
         <dd>
             <h4 style=" width: 10%; color: brown">@Html.DisplayFor(model => model.User.Name)</h4>
@@ -44,8 +44,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-
-@foreach (var item in Model)
-{
-    @Html.Partial("_PartialDishRestaurant", item)
-}

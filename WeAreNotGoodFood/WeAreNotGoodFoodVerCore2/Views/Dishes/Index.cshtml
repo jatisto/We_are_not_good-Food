@@ -22,8 +22,34 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+    <tr>
+        <td>
+            <h4 style="color: darkslategrey">@Html.DisplayFor(modelItem => item.NameDish)</h4>
+        </td>
+        <td>
+            <img src="~/@item.ImagesDish" width="550" height="350" />
+        </td>
+        <td>
+            <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .com</h4>
+        </td>
+        <td>
+            <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description) </h4>
+        </td>
+        <td>
+            <h4 style="color: darkslategrey">@Html.DisplayFor(modelItem => item.Restaurant.Name)</h4>
+        </td>
+        <form asp-area="" asp-controller="Dishes" asp-action="AddShoppingCart">
+            <div class="form-group">
+                <input  type="submit" value="AddCart" class="btn btn-default"/>
+            </div>
+        </form>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit</a> <br />
+            <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details</a> <br />
+            <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a> <br />
+        </td>
+    </tr>
 
-        @Html.Partial("_PartialViewDish", item)
 }
     </tbody>
 </table>

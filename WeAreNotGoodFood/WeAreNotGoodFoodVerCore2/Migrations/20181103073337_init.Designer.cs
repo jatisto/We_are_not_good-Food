@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WeAreNotGoodFoodVerCore2.Data;
 
-namespace WeAreNotGoodFoodVerCore2.Data.Migrations
+namespace WeAreNotGoodFoodVerCore2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181103051015_change")]
-    partial class change
+    [Migration("20181103073337_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,11 +199,16 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
 
                     b.Property<int>("RestaurantId");
 
+                    b.Property<int>("ShoppingCartId");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
+
+                    b.HasIndex("ShoppingCartId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -228,6 +233,18 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -280,6 +297,11 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.Restaurant", "Restaurant")
                         .WithMany("DishList")
                         .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WeAreNotGoodFoodVerCore2.Models.ShoppingCart", "ShoppingCart")
+                        .WithOne("Dish")
+                        .HasForeignKey("WeAreNotGoodFoodVerCore2.Models.Dish", "ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.ApplicationUser", "User")
