@@ -77,7 +77,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             return View(dish);
         }
 
-        // GET: Dishes/Details/5
+/*        // GET: Dishes/Details/5
         public async Task<IActionResult> ShowLIst(int? id)
         {
             if (id == null)
@@ -94,7 +94,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             }
 
             return PartialView(dish);
-        }
+        }*/
 
         #endregion
 

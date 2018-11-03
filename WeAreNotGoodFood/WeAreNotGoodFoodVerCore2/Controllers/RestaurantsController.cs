@@ -253,5 +253,10 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         }
 
         #endregion
+
+        public ActionResult AllDish()
+        {
+            return PartialView(_context.Dishes.ToList());
+        }
     }
 }
