@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WeAreNotGoodFoodVerCore2.Models
 {
-    public class Restaurant : Entity
+    public class Restaurant : Entity, IEnumerable
     {
         [Display(Name = "Имя")]
         public string Name { get; set; }
@@ -21,5 +22,13 @@ namespace WeAreNotGoodFoodVerCore2.Models
         public ApplicationUser User { get; set; }
 
         public List<Dish> DishList { get; set; }
+
+        public IEnumerator GetEnumerator()
+        {
+            foreach (var item in DishList)
+            {
+                yield return item;
+            }
+        }
     }
 }
