@@ -77,6 +77,25 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             return View(dish);
         }
 
+        // GET: Dishes/Details/5
+        public async Task<IActionResult> ShowLIst(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dish = await _context.Dishes
+                .Include(d => d.Restaurant)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (dish == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView(dish);
+        }
+
         #endregion
 
         #region Create
