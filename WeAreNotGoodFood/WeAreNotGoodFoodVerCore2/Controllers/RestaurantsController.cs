@@ -54,6 +54,20 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
 
         #endregion
 
+        #region ShowDish
+
+        public async Task<IActionResult> ShowDish()
+        {
+            var applicationDbContext = _context.Dishes
+                .Include(r => r.User)
+                .Include(r => r.Restaurant)
+                .OrderByDescending(r => r.Id);
+
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        #endregion
+
         #region Details
 
         // GET: Restaurants/Details/5
