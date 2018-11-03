@@ -21,9 +21,9 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         #region Conect and Ctor
 
         public DishesController(
-            UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager, 
-            IHostingEnvironment environment, 
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IHostingEnvironment environment,
             FileUploadService fileUploadService,
             ApplicationDbContext context)
         {
@@ -93,7 +93,8 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish, DishVM model)
+        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")]
+            Dish dish, DishVM model)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +106,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
@@ -126,6 +128,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             {
                 return NotFound();
             }
+
             ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
@@ -135,18 +138,19 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")] Dish dish, DishVM model)
+        public async Task<IActionResult> Edit(int id, [Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")]
+            Dish dish, DishVM model)
         {
             if (id != dish.Id)
             {
                 return NotFound();
             }
+
             var searching = await _context.Dishes.SingleOrDefaultAsync(s => s.Id == id);
             if (ModelState.IsValid)
             {
                 try
                 {
-
                     var path = Path.Combine(_environment.WebRootPath,
                         $"images\\{_userManager.GetUserName(User)}\\Publication");
 
@@ -171,8 +175,10 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "Id", "Id", dish.RestaurantId);
             return View(dish);
         }
@@ -241,6 +247,35 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             };
 
             return dishNew;
+        }
+
+        #endregion
+
+        #region AddCart
+
+        public async Task<IActionResult> AddShoppingCart(Dish dish, int quantity)
+        {
+
+            ShoppingCart shoppingCart = new List<ShoppingCart>()
+                .Where(d => d.Dish.Id == dish.Id)
+                .FirstOrDefault(d => d.Dish.Id == dish.Id);
+
+            if (ModelState.IsValid)
+            {
+                if (shoppingCart == null)
+                {
+                    _context.Add(new ShoppingCart {Dish = dish, Quantity = quantity});
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                shoppingCart.Quantity += quantity;
+                _context.Add(shoppingCart);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(dish);
         }
 
         #endregion

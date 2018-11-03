@@ -92,17 +92,18 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         #endregion
 
         #region Create
-        
+
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,UserId,Id")] Restaurant restaurant, RestaurantVM model)
+        public async Task<IActionResult> Create([Bind("Name,ImagesRestaurant,Description,UserId,Id")]
+            Restaurant restaurant, RestaurantVM model)
         {
             if (ModelState.IsValid)
             {
@@ -114,6 +115,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", restaurant.UserId);
             return View(restaurant);
         }
@@ -135,6 +137,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             {
                 return NotFound();
             }
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", restaurant.UserId);
             return View(restaurant);
         }
@@ -144,7 +147,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, 
+        public async Task<IActionResult> Edit(int id,
             [Bind("Name,ImagesRestaurant,Description,UserId,Id")]
             Restaurant restaurant,
             RestaurantVM model)
@@ -153,6 +156,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             {
                 return NotFound();
             }
+
             var searching = await _context.Restaurants.SingleOrDefaultAsync(s => s.Id == id);
             if (ModelState.IsValid)
             {
@@ -182,8 +186,10 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", restaurant.UserId);
             return View(restaurant);
         }
@@ -240,7 +246,8 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             var path = Path.Combine(_environment.WebRootPath, $"images\\{_userManager.GetUserName(User)}\\Publication");
 
             _fileUploadService.Upload(path, model.ImagesRestaurant.FileName, model.ImagesRestaurant);
-            var imageUrlContent = $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesRestaurant.FileName}";
+            var imageUrlContent =
+                $"images/{_userManager.GetUserName(User)}/Publication/{model.ImagesRestaurant.FileName}";
 
             var resistor = new Restaurant
             {
