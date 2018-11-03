@@ -66,6 +66,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
 
             var restaurant = await _context.Restaurants
                 .Include(r => r.User)
+                .Include(d => d.DishList)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {

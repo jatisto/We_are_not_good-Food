@@ -43,7 +43,24 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<br/>
+<hr/>
 
+@foreach (var item in Model.DishList)
+{
+    <tr>
+        <td>
+            <img src="~/@item.ImagesDish" width="550" height="350" />
+        </td>
+        <td>
+            <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .com</h4>
+        </td>
+        <td>
+            <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description) </h4>
+        </td>
+        <td>
+            <h4 style="color: darkslategrey">@Html.DisplayFor(modelItem => item.Restaurant.Name)</h4>
+        </td>
+    </tr>
 
-@Html.Partial("AllDish")
-
+}
