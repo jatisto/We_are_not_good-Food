@@ -10,17 +10,16 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NameDish" class="control-label"></label>
                 <input asp-for="NameDish" class="form-control" />
                 <span asp-validation-for="NameDish" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImagesDish" class="control-label"></label>
-                <input asp-for="ImagesDish" class="form-control" />
-                <span asp-validation-for="ImagesDish" class="text-danger"></span>
+            <div>
+                <label asp-for="ImagesDish"></label><br />
+                <input class="form-control" type="file" name="ImagesDish" accept="image/*" />
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>

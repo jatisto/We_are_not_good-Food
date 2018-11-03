@@ -32,7 +32,7 @@
         </dd>
         <hr />
         <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 10%; color: darkslategrey">@Html.DisplayNameFor(model => model.User)</h4>
+            <h4 style=" width: 10%; color: darkslategrey">Имя владельца</h4>
         </dt>
         <dd>
             <h4 style=" width: 10%; color: brown">@Html.DisplayFor(model => model.User.Name)</h4>
@@ -43,3 +43,21 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<br/>
+<hr/>
+
+@foreach (var item in Model.DishList)
+{
+    <tr>
+        <td>
+            <img src="~/@item.ImagesDish" width="150" height="100" />
+        </td>
+        <td>
+            <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .coм</h4>
+        </td>
+        <td>
+            <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description) </h4>
+        </td>
+    </tr>
+
+}

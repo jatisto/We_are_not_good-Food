@@ -11,18 +11,18 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-                <th style="width: 20%; color: darkgray">Ресторана/Кафе</th>
-                <th style="width: 60%; color: darkgray">Вид</th>
-                <th style="width: 20%; color: darkgray">О заведении</th>
-                <th style="width: 5%; color: darkgray">Владелец</th>
-                <th style="width: 5%; color: darkgray">Редактирование</th>
+    <tr>
+        <th style="width: 20%; color: darkgray">Ресторана/Кафе</th>
+        <th style="width: 60%; color: darkgray">Вид</th>
+        <th style="width: 20%; color: darkgray">О заведении</th>
+        <th style="width: 5%; color: darkgray">Владелец</th>
+        <th style="width: 5%; color: darkgray">Редактирование</th>
                
-            <th></th>
-        </tr>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 <h4 style="color: darkslategrey"> @Html.DisplayFor(modelItem => item.Name)</h4>
@@ -42,6 +42,8 @@
                 <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a> <br />
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+
+

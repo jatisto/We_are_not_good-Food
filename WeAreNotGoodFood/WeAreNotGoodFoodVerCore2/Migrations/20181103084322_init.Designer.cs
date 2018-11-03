@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WeAreNotGoodFoodVerCore2.Data;
 
-namespace WeAreNotGoodFoodVerCore2.Data.Migrations
+namespace WeAreNotGoodFoodVerCore2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181102171559_AddModelsDishRestaurant")]
-    partial class AddModelsDishRestaurant
+    [Migration("20181103084322_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,9 +199,13 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
 
                     b.Property<int>("RestaurantId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Dishes");
                 });
@@ -277,6 +281,10 @@ namespace WeAreNotGoodFoodVerCore2.Data.Migrations
                         .WithMany("DishList")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WeAreNotGoodFoodVerCore2.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.Restaurant", b =>

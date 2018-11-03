@@ -15,5 +15,10 @@ namespace WeAreNotGoodFoodVerCore2.Models
 
         [Display(Name = "Путь")]
         public string AvatarImage { get; set; }
+
+        /*
+        public List<Restaurant> RestaurantsList { get; set; }
+        public List<Dish> DishList { get; set; }
+        */
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,5 +22,10 @@ namespace WeAreNotGoodFoodVerCore2.Models
         public ApplicationUser User { get; set; }
 
         public List<Dish> DishList { get; set; }
+
+        /*public IEnumerator GetEnumerator()
+        {
+            return DishList.GetEnumerator();
+        }*/
     }
 }
