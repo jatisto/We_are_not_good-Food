@@ -8,34 +8,34 @@
 
 <div>
     <h4>Restaurant</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
-        <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 10%; color: darkslategrey">Название заведения</h4>
+        <dt style="width: 20%; color: darkslategrey">
+            <h4 style="width: 10%; color: darkslategrey">Название заведения</h4>
         </dt>
         <dd>
             <h4 style="width: 50%; color: brown"> @Html.DisplayFor(model => model.Name)</h4>
         </dd>
-        <hr />
-        <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 10%; color: darkslategrey"> Изображение</h4>
+        <hr/>
+        <dt style="width: 20%; color: darkslategrey">
+            <h4 style="width: 10%; color: darkslategrey"> Изображение</h4>
         </dt>
         <dd>
-            <img src="~/@Model.ImagesRestaurant" width="550" height="350" />
+            <img src="~/@Model.ImagesRestaurant" width="550" height="350"/>
         </dd>
-        <hr />
-        <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 20%; color: darkslategrey"> @Html.DisplayNameFor(model => model.Description)</h4>
+        <hr/>
+        <dt style="width: 20%; color: darkslategrey">
+            <h4 style="width: 20%; color: darkslategrey"> @Html.DisplayNameFor(model => model.Description)</h4>
         </dt>
         <dd>
-            <h4 style=" width: 50%; color: darkslategrey"> @Html.DisplayFor(model => model.Description)</h4>
+            <h4 style="width: 50%; color: darkslategrey"> @Html.DisplayFor(model => model.Description)</h4>
         </dd>
-        <hr />
-        <dt style=" width: 20%; color: darkslategrey">
-            <h4 style=" width: 10%; color: darkslategrey">Имя владельца</h4>
+        <hr/>
+        <dt style="width: 20%; color: darkslategrey">
+            <h4 style="width: 10%; color: darkslategrey">Имя владельца</h4>
         </dt>
         <dd>
-            <h4 style=" width: 10%; color: brown">@Html.DisplayFor(model => model.User.Name)</h4>
+            <h4 style="width: 10%; color: brown">@Html.DisplayFor(model => model.User.Name)</h4>
         </dd>
     </dl>
 </div>
@@ -48,16 +48,23 @@
 
 @foreach (var item in Model.DishList)
 {
-    <tr>
-        <td>
-            <img src="~/@item.ImagesDish" width="150" height="100" />
-        </td>
-        <td>
-            <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .coм</h4>
-        </td>
-        <td>
-            <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description) </h4>
-        </td>
-    </tr>
-
+    <div style="padding-right: 15px; width: auto; display: inline-block">
+        <tr>
+            <td>
+                <a asp-controller="Dishes" asp-action="Details" asp-route-id="@item.Id">
+                <h4 style="color: cadetblue">@Html.DisplayFor(modelItem => item.NameDish) .coм</h4>
+                </a>
+            </td>
+            <td>
+                <img src="~/@item.ImagesDish" width="150" height="100"/>
+            </td>
+            <td>
+                <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .coм</h4>
+            </td>
+            <td>
+                <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description)</h4>
+            </td>
+        </tr>
+    </div>
+    
 }
