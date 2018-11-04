@@ -253,10 +253,10 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
 
         #region AddCart
 
-        public async Task<IActionResult> AddShoppingCart(Dish dish, int quantity)
+        /*public async Task<IActionResult> AddShoppingCart(Dish dish, int quantity)
         {
 
-            ShoppingCart shoppingCart = new List<ShoppingCart>()
+            ShoppingCartItem shoppingCart = new List<ShoppingCartItem>()
                 .Where(d => d.Dish.Id == dish.Id)
                 .FirstOrDefault(d => d.Dish.Id == dish.Id);
 
@@ -264,7 +264,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             {
                 if (shoppingCart == null)
                 {
-                    _context.Add(new ShoppingCart { Dish = dish, Quantity = quantity });
+                    _context.Add(new ShoppingCartItem { Dish = dish, Quantity = quantity });
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -277,6 +277,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
 
             return View(dish);
         }
+*/
 
         #endregion
 
