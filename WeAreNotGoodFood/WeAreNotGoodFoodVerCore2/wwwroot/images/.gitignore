@@ -6,5 +6,5 @@
 !banner2.svg
 !banner3.svg
 !banner4.svg
-!*Dish/
-!*Restaurant/
+!Dish/*
+!Restaurant/*
