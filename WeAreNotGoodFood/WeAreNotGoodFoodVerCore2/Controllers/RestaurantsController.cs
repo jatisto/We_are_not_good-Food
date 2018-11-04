@@ -76,13 +76,6 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             return View(restaurant);
         }
 
-        public async Task<IActionResult> ShowAll(int? id, RestoDishVM model)
-        {
-           
-
-            return View();
-        }
-
         #endregion
 
         #region Create
