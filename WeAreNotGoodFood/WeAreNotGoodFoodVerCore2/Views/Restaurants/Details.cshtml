@@ -9,22 +9,16 @@
     <div class="thumbnail" style="padding: 30px">
 
 
-        <h2>Details</h2>
-        <h4>Restaurant</h4>
+        <h2>Ресторан</h2>
+        <h4><h3 style="color: darkcyan"> @Html.DisplayFor(model => model.Name)</h3></h4>
 
         <dl class="dl-horizontal">
-            <dt style="width: 20%; color: darkgrey">
-                <h4 style="width: 10%; color: darkgrey">Название заведения</h4>
-            </dt>
-            <dd>
-                <h4 style="color: darkslategray"> @Html.DisplayFor(model => model.Name)</h4>
-            </dd>
             <hr />
             <dt style="width: 20%; color: darkgrey">
                 <h4 style="width: 10%; color: darkgrey"> Изображение</h4>
             </dt>
             <dd>
-                <div class="thumbnail" style="padding: 10px"><img src="~/@Model.ImagesRestaurant" width="100%" /></divclass="thumbnail">
+                <div class="thumbnail" style="padding: 10px"><img src="~/@Model.ImagesRestaurant" width="100%" /></div >
             </dd>
             <hr />
             <dt style="width: 20%; color: darkgrey">
@@ -35,7 +29,7 @@
             </dd>
         </dl>
 
-        <div class="thumbnail">
+        <div class="thumbnail" style="padding-left: 10px">
             <h4>
                 <a asp-action="Edit" asp-route-id="@Model.Id">Edit |</a>
                 <a asp-action="Index">Back to List</a>
