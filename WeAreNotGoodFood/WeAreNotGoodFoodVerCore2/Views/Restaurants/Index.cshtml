@@ -4,46 +4,57 @@
     ViewData["Title"] = "Index";
 }
 
-<h2 style="color: darkslategrey">Все заведения</h2>
 
-<p>
-    <a asp-action="Create" style="color: darkcyan">Добавить заведение</a>
-</p>
-<table class="table">
-    <thead>
-    <tr>
-        <th style="width: 20%; color: darkgray">Ресторана/Кафе</th>
-        <th style="width: 60%; color: darkgray">Вид</th>
-        <th style="width: 20%; color: darkgray">О заведении</th>
-        <th style="width: 5%; color: darkgray">Владелец</th>
-        <th style="width: 5%; color: darkgray">Редактирование</th>
-               
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
+<div class="col-sm-12 col-lg-12 col-md-12">
+    <div class="thumbnail">
+
+        <h2 style="color: darkgrey">Все заведения</h2>
+
+        <h4>
+            <a asp-action="Create" style="color: darkcyan">Добавить заведение</a>
+        </h4>
+
+        @*<table class="table">*@
+        @*<thead>
         <tr>
-            <td>
-                <h4 style="color: darkslategrey"> @Html.DisplayFor(modelItem => item.Name)</h4>
-            </td>
-            <td>
-                <img src="~/@item.ImagesRestaurant" width="700" height="450" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit</a> <br />
-                <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details</a> <br />
-                <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a> <br />
-            </td>
+            <div class="caption">
+                <th style="width: 10%;  color: darkgray">Ресторана</h3>
+                <th style="width: 60%; color: darkgray">Вид</th>
+                <th style="width: 20%; color: darkgray">Описание</th>
+                <th style="width: 10%; color: darkgray">Редактирование</th>
+            </div>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>*@
+        @*<tbody>*@
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
+                <tr>
+                    <td>
 
+                        <h1 style="color: darkslategray"> @Html.DisplayFor(modelItem => item.Name)</h1>
 
+                    </td>
+                    <td>
+                        <img src="~/@item.ImagesRestaurant" width="100%"/>
+                    </td>
+                    <td>
+                        <h2 style="color: darkgrey">@Html.DisplayFor(modelItem => item.Description)</h2>
+                    </td>
+                    <td class="thumbnail">
+                        <h3>
+                            <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit |</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details |</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a>
+                        </h3>
+                    </td>
+                </tr>
+
+            </a>
+            <hr/>
+        }
+        @*</tbody>
+        </table>*@
+
+    </div>
+</div>

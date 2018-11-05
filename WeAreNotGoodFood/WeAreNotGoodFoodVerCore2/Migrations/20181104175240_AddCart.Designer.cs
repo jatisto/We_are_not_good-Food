@@ -11,8 +11,8 @@ using WeAreNotGoodFoodVerCore2.Data;
 namespace WeAreNotGoodFoodVerCore2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181103084322_init")]
-    partial class init
+    [Migration("20181104175240_AddCart")]
+    partial class AddCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,7 +195,7 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
 
                     b.Property<string>("NameDish");
 
-                    b.Property<double>("Price");
+                    b.Property<decimal>("Price");
 
                     b.Property<int>("RestaurantId");
 
@@ -228,6 +228,26 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Amount");
+
+                    b.Property<int?>("DishId");
+
+                    b.Property<string>("ShoppingCartId");
+
+                    b.Property<string>("ShoppingCartItemId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishId");
+
+                    b.ToTable("ShoppingCartItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -292,6 +312,13 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("WeAreNotGoodFoodVerCore2.Models.Dish", "Dish")
+                        .WithMany()
+                        .HasForeignKey("DishId");
                 });
 #pragma warning restore 612, 618
         }

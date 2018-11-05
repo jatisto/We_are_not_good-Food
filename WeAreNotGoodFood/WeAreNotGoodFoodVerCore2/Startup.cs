@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WeAreNotGoodFoodVerCore2.Data;
+using WeAreNotGoodFoodVerCore2.Interfaces;
 using WeAreNotGoodFoodVerCore2.Models;
+using WeAreNotGoodFoodVerCore2.Repository;
 using WeAreNotGoodFoodVerCore2.Services;
 
 namespace WeAreNotGoodFoodVerCore2
@@ -45,7 +48,14 @@ namespace WeAreNotGoodFoodVerCore2
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<FileUploadService>();
 
+            services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+            services.AddTransient<IDishRepository, DishRepository>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
+
             services.AddMvc();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +75,8 @@ namespace WeAreNotGoodFoodVerCore2
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseSession();
+            app.UseMvc();
 
             app.UseMvc(routes =>
             {

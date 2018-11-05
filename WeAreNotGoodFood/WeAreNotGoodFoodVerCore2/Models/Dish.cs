@@ -6,11 +6,13 @@ namespace WeAreNotGoodFoodVerCore2.Models
     {
         public string NameDish { get; set; }
         public string ImagesDish { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public string Description { get; set; }
 
         [Display(Name = "Имя пользователя")] public string UserId { get; set; }
         public ApplicationUser User { get; set; }
+
+        public bool IsPreferredDish { get; set; }
 
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }

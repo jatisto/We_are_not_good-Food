@@ -76,13 +76,6 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             return View(restaurant);
         }
 
-        public async Task<IActionResult> ShowAll(int? id, RestoDishVM model)
-        {
-           
-
-            return View();
-        }
-
         #endregion
 
         #region Create
@@ -254,14 +247,5 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         }
 
         #endregion
-
-        public ActionResult AllDish()
-        {
-            var dishContext = _context.Dishes
-                .Include(r => r.User)
-                .OrderByDescending(r => r.Id);
-
-            return View(dishContext.ToList());
-        }
     }
 }

@@ -208,6 +208,27 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DishId = table.Column<string>(nullable: true),
+                    DishId1 = table.Column<int>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_Dishes_DishId1",
+                        column: x => x.DishId1,
+                        principalTable: "Dishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -261,6 +282,11 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                 name: "IX_Restaurants_UserId",
                 table: "Restaurants",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_DishId1",
+                table: "ShoppingCarts",
+                column: "DishId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -281,10 +307,13 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Dishes");
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Dishes");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");

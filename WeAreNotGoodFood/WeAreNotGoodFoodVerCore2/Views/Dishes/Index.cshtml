@@ -7,60 +7,35 @@
 <h2>Все блюда</h2>
 
 <p>
-    <h4 style="color: darkslategrey"> <a asp-action="Create">Добавить блюдо</a></h4>
+    <h4 style="color: darkslategrey">
+        <a asp-action="Create">Добавить блюдо</a>
+    </h4>
 </p>
-<table class="table table-bordered">
-    <thead>
-    <tr style="width: auto">
-        <th style="width: 10%; color: darkgray">Название</th>
-        <th style="width: 40%; color: darkgray">Вид</th>
-        <th style="width: 15%; color: darkgray">Цена</th>
-        <th style="width: 20%; color: darkgray">Описание</th>
-        <th style="width: 10%; color: darkgray">Название ресторана</th>
-        <th style="width: auto; color: darkgray">Настройки</th>
-        <th style="width: auto; color: darkgray">Корзина</th>
-        
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                <h4 style="color: darkslategrey">@Html.DisplayFor(modelItem => item.NameDish)</h4>
-            </td>
-            <td>
-                <img src="~/@item.ImagesDish" width="450" height="350" />
-            </td>
-            <td>
-                <h4 style="color: brown">@Html.DisplayFor(modelItem => item.Price) .coм</h4>
-            </td>
-            <td>
-                <h4 style="color: darkgray">@Html.DisplayFor(modelItem => item.Description) </h4>
-            </td>
-            <td>
-                <h4 style="color: darkslategrey">@Html.DisplayFor(modelItem => item.Restaurant.Name)</h4>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit</a> <br />
-                <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details</a> <br />
-                <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a> <br />
-            </td>
-            <td>
-                <form asp-area="" asp-controller="Dishes" asp-action="AddShoppingCart">
-                    <div class="form-group">
-                        <input  type="submit" value="AddCart" class="btn btn-default"/>
+
+
+    @foreach (var item in Model)
+    {
+        <a asp-action="Details" asp-route-id="@item.Id">
+            <div class="col-sm-10 col-lg-10 col-md-10">
+                <div class="thumbnail">
+                    <img src="~/@item.ImagesDish" style="width: 100%"/>
+                    <div class="caption">
+                        <h3 class="pull-right">@item.Price.ToString("# сом")</h3>
+                        <h3>
+                            <a asp-controller="Dishes" asp-action="Details" asp-route-dishId="@item.RestaurantId">@item.NameDish</a>
+                        </h3>
+                        <p>@item.Description</p>
                     </div>
-                </form>
-            </td>
-        </tr>
+
+
+                    <div class="addToCart text-right">
+                        <p class="button ">
+                            <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-dishId="@item.RestaurantId">
+                                Add to cart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
     }
-
-    </tbody>
-    
-</table>
-
-@*<form asp-area="" asp-controller="Dishes" asp-action="AddShoppingCart">
-    <div class="form-group">
-        <input  type="submit" value="AddCart" class="btn btn-default"/>
-    </div>
-</form>*@
