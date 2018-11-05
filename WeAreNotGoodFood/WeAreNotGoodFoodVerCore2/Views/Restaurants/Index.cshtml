@@ -6,13 +6,9 @@
 
 
 <div class="col-sm-12 col-lg-12 col-md-12">
-    <div class="thumbnail">
+    <div class="thumbnail" style="padding: 20px">
 
-        <h2 style="color: darkgrey">Все заведения</h2>
-
-        <h4>
-            <a asp-action="Create" style="color: darkcyan">Добавить заведение</a>
-        </h4>
+        
 
         @*<table class="table">*@
         @*<thead>
@@ -36,7 +32,7 @@
 
                     </td>
                     <td>
-                        <img src="~/@item.ImagesRestaurant" width="100%"/>
+                        <div class="thumbnail"><img src="~/@item.ImagesRestaurant" width="100%" style="padding: 10px"/></div>
                     </td>
                     <td>
                         <h2 style="color: darkgrey">@Html.DisplayFor(modelItem => item.Description)</h2>
@@ -58,3 +54,12 @@
 
     </div>
 </div>
+
+<footer>
+    <div class="thumbnail" style="padding-left: 20px; background-color: ghostwhite" >
+        <h2 style="color: darkgrey">Все заведения</h2>
+
+        <h4>
+            <a asp-action="Create" style="color: darkcyan">Добавить заведение</a>
+        </h4></div>
+</footer>

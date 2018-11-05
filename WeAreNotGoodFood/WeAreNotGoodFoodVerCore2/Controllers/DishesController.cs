@@ -93,7 +93,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId,Id")]
+        public async Task<IActionResult> Create([Bind("NameDish,ImagesDish,Price,Description,RestaurantId, Id")]
             Dish dish, DishVM model)
         {
             if (ModelState.IsValid)
@@ -243,6 +243,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
                 ImagesDish = imageUrlContent,
                 Description = dish.Description,
                 Price = dish.Price,
+//                IsPreferredDish = dish.IsPreferredDish,
                 RestaurantId = dish.RestaurantId
             };
 
