@@ -12,6 +12,8 @@ namespace WeAreNotGoodFoodVerCore2.Models
         [Display(Name = "Имя пользователя")] public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
+        public bool IsPreferredDish { get; set; }
+
         public int RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
     }

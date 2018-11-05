@@ -15,21 +15,21 @@ namespace WeAreNotGoodFoodVerCore2.Mocks
                     new Restaurant
                     {
                         ImagesRestaurant =
-                            @"C:\Users\evgen\GitFolderHome\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Restaurant\caption.jpg",
+                            @"C:\home\Git_work\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Resraurant\images (8).jpg",
                         Name = "Alcoholic",
                         Description = "Уютно и приятно"
                     },
                     new Restaurant
                     {
                         ImagesRestaurant =
-                            @"C:\Users\evgen\GitFolderHome\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Restaurant\images (3).jpg",
+                            @"C:\home\Git_work\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Resraurant\загруже13но.jpg",
                         Name = "Не пьющий саловей",
                         Description = "Если ты к нам пришёл то уже не забудеш"
                     },
                     new Restaurant
                     {
                         ImagesRestaurant =
-                            @"C:\Users\evgen\GitFolderHome\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Restaurant\images (5).jpg",
+                            @"C:\home\Git_work\We_are_not_good-Food\WeAreNotGoodFood\WeAreNotGoodFoodVerCore2\wwwroot\images\Resraurant\загружено (2).jpg",
                         Name = "Красивая жизнь",
                         Description = "Ну это про нас!"
                     },
