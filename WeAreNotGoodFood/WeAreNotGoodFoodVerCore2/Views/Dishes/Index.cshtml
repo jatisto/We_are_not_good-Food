@@ -17,10 +17,10 @@
     {
         <a asp-action="Details" asp-route-id="@item.Id">
             <div class="col-sm-10 col-lg-10 col-md-10">
-                <div class="thumbnail">
+                <div class="thumbnail" style="padding: 10px">
                     <img src="~/@item.ImagesDish" style="width: 100%"/>
                     <div class="caption">
-                        <h3 class="pull-right">@item.Price.ToString("# сом")</h3>
+                        <h3 class="pull-right">@item.Price.ToString("N") .сом</h3>
                         <h3>
                             <a asp-controller="Dishes" asp-action="Details" asp-route-dishId="@item.RestaurantId">@item.NameDish</a>
                         </h3>
@@ -30,7 +30,7 @@
 
                     <div class="addToCart text-right">
                         <p class="button ">
-                            <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-dishId="@item.RestaurantId">
+                            <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-dishId="@item.Id">
                                 Add to cart
                             </a>
                         </p>
