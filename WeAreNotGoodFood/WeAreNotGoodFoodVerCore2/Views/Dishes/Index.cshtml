@@ -20,7 +20,7 @@
                 <div class="thumbnail">
                     <img src="~/@item.ImagesDish" style="width: 100%"/>
                     <div class="caption">
-                        <h3 class="pull-right">@item.Price.ToString("c")</h3>
+                        <h3 class="pull-right">@item.Price.ToString("# сом")</h3>
                         <h3>
                             <a asp-controller="Dishes" asp-action="Details" asp-route-dishId="@item.RestaurantId">@item.NameDish</a>
                         </h3>
