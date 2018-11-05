@@ -47,6 +47,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
         {
             var applicationDbContext = _context.Restaurants
                 .Include(r => r.User)
+                .Include(s => s.ShoppingCartItemsList)
                 .OrderByDescending(r => r.Id);
 
             return View(await applicationDbContext.ToListAsync());
@@ -67,6 +68,7 @@ namespace WeAreNotGoodFoodVerCore2.Controllers
             var restaurant = await _context.Restaurants
                 .Include(r => r.User)
                 .Include(d => d.DishList)
+                .Include(s => s.ShoppingCartItemsList)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {

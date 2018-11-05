@@ -11,9 +11,10 @@ using WeAreNotGoodFoodVerCore2.Data;
 namespace WeAreNotGoodFoodVerCore2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181105071449_LiseShopping")]
+    partial class LiseShopping
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,20 +232,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     b.ToTable("Restaurants");
                 });
 
-            modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCart", b =>
-                {
-                    b.Property<string>("ShoppingCartId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("RestaurantId");
-
-                    b.HasKey("ShoppingCartId");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.ToTable("ShoppingCart");
-                });
-
             modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -265,8 +252,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     b.HasIndex("DishId");
 
                     b.HasIndex("RestaurantId");
-
-                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItem");
                 });
@@ -335,13 +320,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("WeAreNotGoodFoodVerCore2.Models.Restaurant")
-                        .WithMany("ShoppingCartsList")
-                        .HasForeignKey("RestaurantId");
-                });
-
             modelBuilder.Entity("WeAreNotGoodFoodVerCore2.Models.ShoppingCartItem", b =>
                 {
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.Dish", "Dish")
@@ -351,10 +329,6 @@ namespace WeAreNotGoodFoodVerCore2.Migrations
                     b.HasOne("WeAreNotGoodFoodVerCore2.Models.Restaurant")
                         .WithMany("ShoppingCartItemsList")
                         .HasForeignKey("RestaurantId");
-
-                    b.HasOne("WeAreNotGoodFoodVerCore2.Models.ShoppingCart")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }
