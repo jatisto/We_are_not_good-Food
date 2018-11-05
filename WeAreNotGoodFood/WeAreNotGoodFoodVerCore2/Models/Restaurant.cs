@@ -22,6 +22,8 @@ namespace WeAreNotGoodFoodVerCore2.Models
         public ApplicationUser User { get; set; }
 
         public List<Dish> DishList { get; set; }
+        public List<ShoppingCartItem> ShoppingCartItemsList { get; set; }
+
 
         /*public IEnumerator GetEnumerator()
         {
