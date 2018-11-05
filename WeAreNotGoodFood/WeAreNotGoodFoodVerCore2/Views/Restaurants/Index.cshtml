@@ -5,47 +5,50 @@
 }
 
 <div class="thumbnail" background-color: crimson">
-<h2 style="color: cadetblue; padding-left: 20px">РЕСТОРАНЫ</h2>
 
-<div class="col-sm-12 col-lg-12 col-md-12"> 
-    <div class="thumbnail" style="padding: 20px">
+    <h2 style="color: cadetblue; padding-left: 20px">РЕСТОРАНЫ</h2>
+
+    <div class="col-sm-12 col-lg-12 col-md-12">
+        <div class="thumbnail" style="padding: 20px">
 
 
-        @foreach (var item in Model)
-        {
-            <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
-                <tr>
-                    <td>
+            @foreach (var item in Model)
+            {
+                <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
+                    <tr>
+                        <td>
 
-                        <h1 style="color: crimson"> @Html.DisplayFor(modelItem => item.Name)</h1>
+                            <h1 style="color: crimson"> @Html.DisplayFor(modelItem => item.Name)</h1>
 
-                    </td>
-                    <td>
-                        <div class="thumbnail">
-                            <img src="~/@item.ImagesRestaurant" width="100%" style="padding: 10px"/>
-                        </div>
-                    </td>
-                    <td>
-                        <h2 style="color: darkgrey">@Html.DisplayFor(modelItem => item.Description)</h2>
-                    </td>
-                    <td class="thumbnail">
-                        <h3>
-                            <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit |</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details |</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a>
-                        </h3>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="~/@item.ImagesRestaurant" width="100%" style="padding: 10px"/>
+                            </div>
+                        </td>
+                        <td>
+                            <h2 style="color: darkgrey">@Html.DisplayFor(modelItem => item.Description)</h2>
+                        </td>
+                        <td class="thumbnail">
+                            <h3>
+                                <a asp-action="Edit" asp-route-id="@item.Id" style="color: cadetblue">Edit |</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" style="color: cadetblue">Details |</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" style="color: cadetblue">Delete</a>
+                            </h3>
+                        </td>
+                    </tr>
 
-            </a>
-            <hr/>
-        }
+                </a>
+                <hr/>
+            }
+
+        </div>
+
 
     </div>
+    <footer>
+        <h3>
+            <a asp-action="Create" style="color: crimson; padding-left: 20px; text-decoration: none">Добавить заведение</a>
+        </h3>
+    </footer>
 </div>
-
-<footer>
-    <h3>
-        <a asp-action="Create" style="color: crimson; padding-left: 20px; text-decoration: none">Добавить заведение</a>
-    </h3>
-</footer>
